@@ -4,14 +4,15 @@ class Jugador(pygame.sprite.Sprite):
     def __init__(self,pos,m):
         pygame.sprite.Sprite.__init__(self)
         self.m=m
+        self.accion=3
         self.con=0
-        self.dir=2
-        self.image=self.m[self.dir][self.con]
+        self.image=self.m[self.con]
         self.rect=self.image.get_rect()
         self.rect.x=pos[0]
         self.rect.y=pos[1]
         self.velx=0
         self.vely=0
+        self.score=0
         self.plataformas=None
 
     def gravedad (self, g=0.7):
@@ -21,12 +22,12 @@ class Jugador(pygame.sprite.Sprite):
             self.vely += g
 
     def update(self):
-        if self.velx!=0:
-            if self.con < 2:
+        if self.velx!=self.vely:
+            if self.con < self.accion:
                 self.con+=1
             else:
                 self.con=0
-        self.image=self.m[self.dir][self.con]
+        self.image=self.m[self.con]
         self.rect.x+=self.velx
         ls_col=pygame.sprite.spritecollide(self,self.plataformas,False)
         #Colision  en X
