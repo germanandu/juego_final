@@ -1,7 +1,7 @@
 import pygame
 import random
 
-ANCHO=1024
+ANCHO=768
 ALTO=620
 AMARILLO=[255,255,0]
 AZUL=[0,0,255]
@@ -11,6 +11,7 @@ BLANCO=[255,255,255]
 #IMAGENES
 golem=pygame.image.load('img/golem.png')
 #jugador
+i_vida=pygame.image.load('img/vida.png')
 derecha=pygame.image.load('img/personaje/run.png')
 izquierda=pygame.image.load('img/personaje/run2.png')
 hide=pygame.image.load('img/personaje/hide.png')
@@ -19,7 +20,10 @@ atack1=pygame.image.load('img/personaje/attack.png')
 atack2=pygame.image.load('img/personaje/attack2.png')
 #ave
 hide_ave=pygame.image.load('img/ave/Flight.png')
-
+bala_ave=pygame.image.load('img/bala_ave.png')
+#lobo
+walk1=pygame.image.load('img/lobo/walk1.png')
+walk2=pygame.image.load('img/lobo/walk2.png')
 #RECORTE JUGADOR
 
 m_derecha=[]
@@ -67,11 +71,33 @@ for c in range(8):
     cuadro=hide_ave.subsurface(150*c,150*0,150,150)
     m_ave.append(cuadro)
 
+#RECORTE VIDA
+m_vida=[]
+for c in range(4):
+    cuadro=i_vida.subsurface(54*c,70*0,54,70)
+    m_vida.append(cuadro)
+#RECORTE LOBO
+m_lobo_izq=[]
+for c in range(12):
+    cuadro=walk1.subsurface(64*c,32*0,64,32)
+    m_lobo_izq.append(cuadro)
+
+m_lobo_der=[]
+for c in range(12):
+    cuadro=walk2.subsurface(64*c,32*0,64,32)
+    m_lobo_der.append(cuadro)
 #VARIABLES
+cruzar_puerta=False
+vidas_jugador=0
+score_jugador=0
+golpear=False
+VELOCIDAD=4
 milisegundos=0
 segundos=0
 minutos=0
 inicio_juego=False
-fin_juego=False
+fin_mapa1=False
+fin_mapa2=False
+fin_mapa3=False
 fin = False
 reloj=pygame.time.Clock()

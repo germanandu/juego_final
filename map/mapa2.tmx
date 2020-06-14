@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="175" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="47">
+<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="175" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="65">
  <tileset firstgid="1" source="../img/mapa_fondo.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="175" height="9">
   <data encoding="csv">
@@ -56,6 +56,22 @@
   <object id="40" name="wall" x="4935" y="352" width="193" height="41"/>
   <object id="41" name="wall" x="3" y="10" width="14" height="397"/>
   <object id="43" name="player" x="35" y="261" width="48" height="48"/>
-  <object id="46" name="ave" x="580" y="126" width="150" height="150"/>
+  <object id="46" name="ave" x="546" y="136" width="150" height="150"/>
+  <object id="47" name="ave" x="1474" y="136" width="150" height="150"/>
+  <object id="48" name="ave" x="3372" y="62" width="150" height="150"/>
+  <object id="49" name="ave" x="6996" y="96" width="150" height="150"/>
+  <object id="50" name="ave" x="7918" y="142" width="150" height="150"/>
+  <object id="51" name="ave" x="9586" y="90" width="150" height="150"/>
+  <object id="52" name="vacio" x="6" y="500" width="11168" height="68"/>
+  <object id="53" name="ave" x="4892" y="94" width="150" height="150"/>
+  <object id="54" name="puerta" x="11136" y="254" width="60" height="150"/>
+  <object id="56" name="lobo" x="3038" y="368" width="32" height="64"/>
+  <object id="58" name="lobo" x="3872" y="366" width="32" height="64"/>
+  <object id="59" name="lobo" x="5808" y="362" width="32" height="64"/>
+  <object id="60" name="lobo" x="6194" y="366" width="32" height="64"/>
+  <object id="61" name="lobo" x="7470" y="264" width="32" height="64"/>
+  <object id="62" name="lobo" x="8240" y="358" width="32" height="64"/>
+  <object id="63" name="lobo" x="9268" y="266" width="32" height="64"/>
+  <object id="64" name="lobo" x="10656" y="362" width="32" height="64"/>
  </objectgroup>
 </map>
