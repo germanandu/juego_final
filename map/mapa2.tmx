@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="175" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="65">
+<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="175" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="83">
  <tileset firstgid="1" source="../img/mapa_fondo.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="175" height="9">
   <data encoding="csv">
@@ -70,8 +70,26 @@
   <object id="59" name="lobo" x="5808" y="362" width="32" height="64"/>
   <object id="60" name="lobo" x="6194" y="366" width="32" height="64"/>
   <object id="61" name="lobo" x="7470" y="264" width="32" height="64"/>
-  <object id="62" name="lobo" x="8240" y="358" width="32" height="64"/>
+  <object id="62" name="lobo" x="8320" y="364" width="32" height="64"/>
   <object id="63" name="lobo" x="9268" y="266" width="32" height="64"/>
   <object id="64" name="lobo" x="10656" y="362" width="32" height="64"/>
+  <object id="65" name="linea" x="2942" y="352" width="6" height="46"/>
+  <object id="66" name="linea" x="3180" y="352" width="6" height="46"/>
+  <object id="67" name="linea" x="3676" y="352" width="6" height="46"/>
+  <object id="68" name="linea" x="4114" y="356" width="6" height="46"/>
+  <object id="69" name="linea" x="5638" y="352" width="6" height="46"/>
+  <object id="70" name="linea" x="6034" y="352" width="6" height="46"/>
+  <object id="71" name="linea" x="6418" y="356" width="6" height="46"/>
+  <object id="72" name="linea" x="7340" y="258" width="6" height="46"/>
+  <object id="73" name="linea" x="7608" y="254" width="6" height="46"/>
+  <object id="74" name="linea" x="8238" y="356" width="6" height="46"/>
+  <object id="75" name="linea" x="8438" y="358" width="6" height="46"/>
+  <object id="76" name="linea" x="9138" y="260" width="6" height="46"/>
+  <object id="77" name="linea" x="9418" y="258" width="6" height="46"/>
+  <object id="78" name="linea" x="10414" y="358" width="6" height="46"/>
+  <object id="79" name="linea" x="10998" y="360" width="6" height="46"/>
+  <object id="80" name="pocionv" x="1814" y="326" width="24" height="24"/>
+  <object id="81" name="pocionv" x="4202" y="424" width="24" height="24"/>
+  <object id="82" name="pocionv" x="8522" y="324" width="24" height="24"/>
  </objectgroup>
 </map>

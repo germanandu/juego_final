@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="12" height="75" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="30">
+<map version="1.2" tiledversion="2020.05.07" orientation="orthogonal" renderorder="right-down" width="12" height="75" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="58">
  <tileset firstgid="1" source="sprites_caida1.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="12" height="75">
   <data encoding="csv">
@@ -109,5 +109,33 @@
   <object id="27" name="wall" x="-1.77636e-15" y="-1.06581e-14" width="5.33333" height="4748"/>
   <object id="28" name="wall" x="761.333" y="2.66667" width="5.33333" height="4748"/>
   <object id="29" name="player" x="54.6667" y="220"/>
+  <object id="30" name="lobo" x="456" y="288" width="32" height="64"/>
+  <object id="31" name="lobo" x="405.333" y="1136" width="32" height="64"/>
+  <object id="32" name="lobo" x="390.667" y="1888" width="32" height="64"/>
+  <object id="33" name="lobo" x="317.333" y="1441.33" width="32" height="64"/>
+  <object id="34" name="lobo" x="341.333" y="2185.33" width="32" height="64"/>
+  <object id="35" name="lobo" x="258.667" y="2692" width="32" height="64"/>
+  <object id="36" name="lobo" x="252" y="3638.67" width="32" height="64"/>
+  <object id="37" name="linea" x="262.667" y="278.667" width="5.33333" height="44"/>
+  <object id="38" name="linea" x="637.333" y="280" width="5.33333" height="44"/>
+  <object id="39" name="linea" x="636" y="1129.33" width="5.33333" height="44"/>
+  <object id="40" name="linea" x="250.667" y="1132" width="5.33333" height="44"/>
+  <object id="41" name="linea" x="142.667" y="1428" width="5.33333" height="44"/>
+  <object id="42" name="linea" x="496" y="1430.67" width="5.33333" height="44"/>
+  <object id="43" name="linea" x="290.667" y="1877.33" width="5.33333" height="44"/>
+  <object id="44" name="linea" x="634.667" y="1881.33" width="5.33333" height="44"/>
+  <object id="45" name="linea" x="501.333" y="2177.33" width="5.33333" height="44"/>
+  <object id="46" name="linea" x="169.333" y="2181.33" width="5.33333" height="44"/>
+  <object id="47" name="linea" x="485.333" y="2680" width="5.33333" height="44"/>
+  <object id="48" name="linea" x="81.3333" y="2681.33" width="5.33333" height="44"/>
+  <object id="49" name="linea" x="556" y="3629.33" width="5.33333" height="44"/>
+  <object id="50" name="linea" x="45.3333" y="3634.67" width="5.33333" height="44"/>
+  <object id="51" name="ave" x="241.333" y="465.333" width="150" height="150"/>
+  <object id="52" name="ave" x="306.667" y="2830.67" width="150" height="150"/>
+  <object id="53" name="ave" x="285.333" y="3220" width="150" height="150"/>
+  <object id="54" name="ave" x="188" y="3822.67" width="150" height="150"/>
+  <object id="55" name="pocionv" x="148" y="749.333" width="24" height="24"/>
+  <object id="56" name="pocionv" x="173.333" y="2401.33" width="24" height="24"/>
+  <object id="57" name="pocionv" x="632" y="4200" width="24" height="24"/>
  </objectgroup>
 </map>

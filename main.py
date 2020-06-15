@@ -5,6 +5,7 @@ from jugador import *
 from balas import *
 from enemigos import *
 from obstaculos import *
+from modificadores import *
 
 
 if __name__ == '__main__':
@@ -18,12 +19,21 @@ if __name__ == '__main__':
     vacios=pygame.sprite.Group()
     puertas=pygame.sprite.Group()
     lobos=pygame.sprite.Group()
+    lineas=pygame.sprite.Group()
+    bosses=pygame.sprite.Group()
+    pociones=pygame.sprite.Group()
+    #MUSICA
+    ambiente_music=pygame.mixer.Sound('music/ambiente.wav')
+    slash=pygame.mixer.Sound('music/slash.wav')
+    pocionv_sound=pygame.mixer.Sound('music/pocionv.wav')
+    boss1_fire_sound=pygame.mixer.Sound('music/boss1_fire.wav')
     
     #LETRAS
     score=pygame.font.SysFont("Times New Roman, Arial",30)
     tiempo=pygame.font.SysFont("Times New Roman, Arial",30)
     vida=pygame.font.SysFont("Times New Roman, Arial",30)
     nivel_f=pygame.font.SysFont("Times New Roman, Arial",30)
+    boss_f=pygame.font.SysFont("Times New Roman, Arial",20)
     
     #CREACION DEL MAPA 1
     map = TiledMap('map/mapa2.tmx')
@@ -42,6 +52,9 @@ if __name__ == '__main__':
         if tile_object.name == 'puerta':
             p=Puerta([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
             puertas.add(p)
+        if tile_object.name == 'linea':
+            l=Linea([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
+            lineas.add(l)
         if tile_object.name == 'vacio':
             v=Vacio([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
             vacios.add(v)
@@ -50,10 +63,16 @@ if __name__ == '__main__':
             aves.add(a)
         if tile_object.name == 'lobo':
             l=Lobo([tile_object.x, tile_object.y],m_lobo_izq)
+            l.velx = 3
             lobos.add(l)
+        if tile_object.name == 'pocionv':
+            p=Pocion([tile_object.x, tile_object.y])
+            pociones.add(p)
     
     j.plataformas=plataformas
-
+    ambiente_music.set_volume(0.1)
+    ambiente_music.play(-1)
+    
     #MAPA 1 NIVEL 1-----------------------------------------------------------------------------------------------------------
     while not fin and not fin_mapa1:
         #EVENTOS
@@ -76,16 +95,21 @@ if __name__ == '__main__':
             keys = pygame.key.get_pressed()
             
             if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+                j.con=0
                 j.velx=-VELOCIDAD
                 j.m=m_izquierda
                 j.accion=11
             if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+                j.con=0
                 j.velx=VELOCIDAD
                 j.m=m_derecha
                 j.accion=11
-            if keys[pygame.K_UP] or keys[pygame.K_SPACE]:
+            if keys[pygame.K_UP] or keys[pygame.K_w]:
+                j.con=0
                 j.vely=-10
-            if  keys[pygame.K_c]:
+            if  keys[pygame.K_SPACE]:
+                slash.play()
+                j.con=0
                 golpear=True
                 if j.m==m_derecha or j.m==m_hide:
                     j.m=m_atack1
@@ -93,8 +117,18 @@ if __name__ == '__main__':
                 elif j.m==m_izquierda or j.m==m_hide2:
                     j.m=m_atack2
                     j.accion=5
-
-        #DAÑO ESPADA
+                
+        #VIDA EXTRA
+        ls_l=pygame.sprite.spritecollide(j,pociones,False)
+        for p in ls_l:
+            if p.tipo==1:
+                if j.temp < 0:
+                    pocionv_sound.play()
+                    j.vida += 1
+                    if j.vida > 4:
+                        j.vida=4
+                    pociones.remove(p)
+        #DAÑO ESPADA AVES
         ls_l=pygame.sprite.spritecollide(j,aves,False)
         for a in ls_l:
             if ((a.rect.top - 80)< j.rect.top) and (j.rect.top < (a.rect.top+80)):
@@ -102,25 +136,36 @@ if __name__ == '__main__':
                     j.score+=1000
                     aves.remove(a)
                     golpear=False
+
         #CAER AL VACIO
         ls_l=pygame.sprite.spritecollide(j,vacios,False)
         for v in ls_l:
             fin_mapa1=True
 
+        #DAÑO ESPADA LOBOS
+        ls_l=pygame.sprite.spritecollide(j,lobos,False)
+        for l in ls_l:
+            if golpear:
+                j.score+=1000
+                lobos.remove(l)
+                golpear=False
+            else:
+                if j.temp < 0:
+                    j.vida-=1
+                    j.temp=60
+                    if j.vida <=0:
+                        fin_mapa1=True
+
         #MOVIMIENTO LOBOS
         for l in lobos:
-            if l.bandera == False:
-                l.m=m_lobo_izq
-                l.velx = -3
-                l.temp -=3
-                if l.temp < 0:
-                    l.bandera=True
-            if l.bandera:
-                l.m=m_lobo_der
-                l.velx = 3
-                l.temp +=3
-                if l.temp > 100:
-                    l.bandera=False
+            ls_l=pygame.sprite.spritecollide(l,lineas,False)
+            for ln in ls_l:
+                l.velx = l.velx * (-1)
+                if l.velx > 0:
+                    l.m=m_lobo_der
+                else:
+                    l.m=m_lobo_izq
+
 
 
         #PASAR AL OTRO MAPA
@@ -140,6 +185,10 @@ if __name__ == '__main__':
                 puertas.remove(p)
             for v in vacios:
                 vacios.remove(v)
+            for l in lobos:
+                lobos.remove(l)
+            for l in lineas:
+                lineas.remove(l)
         #DISPAROS AVES
         for a in aves:
             if a.temp<0:
@@ -185,11 +234,14 @@ if __name__ == '__main__':
         info1=tiempo.render(msj1,True,BLANCO)
         info2=score.render(msj2,True,BLANCO)
         info4=vida.render(msj4,True,BLANCO)
+        #UPDATES
         camara.update(j)
         aves.update()
         lobos.update()
         balas_ave.update()
         jugadores.update()
+        pociones.update()
+        #IMPRIMIR EN PANTALLA
         ventana.blit(map_img, camara.apply_rect(map_rect))
         ventana.blit(j.image,camara.apply(j))
         for a in aves:
@@ -198,6 +250,8 @@ if __name__ == '__main__':
             ventana.blit(b.image,camara.apply(b))
         for l in lobos:
             ventana.blit(l.image,camara.apply(l))
+        for p in pociones:
+            ventana.blit(p.image,camara.apply(p))
         if j.vida==4:
             ventana.blit(j.image_vida,[0,ALTO-70])
             ventana.blit(j.image_vida,[54,ALTO-70])
@@ -247,6 +301,16 @@ if __name__ == '__main__':
             if tile_object.name == 'ave':
                 a=Ave([tile_object.x, tile_object.y],m_ave)
                 aves.add(a)
+            if tile_object.name == 'linea':
+                l=Linea([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
+                lineas.add(l)
+            if tile_object.name == 'lobo':
+                l=Lobo([tile_object.x, tile_object.y],m_lobo_izq)
+                l.velx = 3
+                lobos.add(l)
+            if tile_object.name == 'pocionv':
+                p=Pocion([tile_object.x, tile_object.y])
+                pociones.add(p)
         
         j.plataformas=plataformas
         j.vida=vidas_jugador
@@ -275,16 +339,21 @@ if __name__ == '__main__':
                 keys = pygame.key.get_pressed()
                 
                 if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+                    j.con=0
                     j.velx=-VELOCIDAD
                     j.m=m_izquierda
                     j.accion=11
                 if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+                    j.con=0
                     j.velx=VELOCIDAD
                     j.m=m_derecha
                     j.accion=11
-                if keys[pygame.K_UP] or keys[pygame.K_SPACE]:
+                if keys[pygame.K_UP] or keys[pygame.K_w]:
+                    j.con=0
                     j.vely=-10
-                if  keys[pygame.K_c]:
+                if  keys[pygame.K_SPACE]:
+                    slash.play()
+                    j.con=0
                     golpear=True
                     if j.m==m_derecha or j.m==m_hide:
                         j.m=m_atack1
@@ -293,6 +362,24 @@ if __name__ == '__main__':
                         j.m=m_atack2
                         j.accion=5
 
+            #VIDA EXTRA
+            ls_l=pygame.sprite.spritecollide(j,pociones,False)
+            for p in ls_l:
+                if p.tipo==1:
+                    if j.temp < 0:
+                        pocionv_sound.play()
+                        j.vida += 1
+                        if j.vida > 4:
+                            j.vida=4
+                        pociones.remove(p)
+            #DISPAROS AVES
+            for a in aves:
+                if a.temp<0:
+                    p=a.RetPos()
+                    b=Bala_ave(p,bala_ave)
+                    b.vely=5
+                    balas_ave.add(b)
+                    a.temp=random.randrange(200)
             #DAÑO ESPADA
             ls_l=pygame.sprite.spritecollide(j,aves,False)
             for a in ls_l:
@@ -302,6 +389,30 @@ if __name__ == '__main__':
                         aves.remove(a)
                         golpear=False
             
+            #DAÑO ESPADA LOBOS
+            ls_l=pygame.sprite.spritecollide(j,lobos,False)
+            for l in ls_l:
+                if golpear:
+                    j.score+=1000
+                    lobos.remove(l)
+                    golpear=False
+                else:
+                    if j.temp < 0:
+                        j.vida-=1
+                        j.temp=60
+                        if j.vida <=0:
+                            fin_mapa2=True
+                        
+            #MOVIMIENTO LOBOS
+            for l in lobos:
+                ls_l=pygame.sprite.spritecollide(l,lineas,False)
+                for ln in ls_l:
+                    l.velx = l.velx * (-1)
+                    if l.velx > 0:
+                        l.m=m_lobo_der
+                    else:
+                        l.m=m_lobo_izq
+                
             #PASAR AL OTRO MAPA
             ls_l=pygame.sprite.spritecollide(j,puertas,False)
             for l in ls_l:
@@ -319,7 +430,22 @@ if __name__ == '__main__':
                     puertas.remove(p)
                 for v in vacios:
                     vacios.remove(v)
-            
+                for l in lobos:
+                    lobos.remove(l)
+                for l in lineas:
+                    lineas.remove(l)
+            #BORRAR BALAS AL IMPACTAR
+            for b in balas_ave:
+                ls_l=pygame.sprite.spritecollide(b,plataformas,False)
+                for l in ls_l:
+                    balas_ave.remove(b)
+                ls_l=pygame.sprite.spritecollide(b,jugadores,False)
+                for j in ls_l:
+                    if j.temp <0:
+                        j.vida-=1
+                        j.temp=60
+                        if j.vida <=0:
+                            fin_mapa2=True
             #CRONOMETRO
             if milisegundos == 60:
                 segundos += 1
@@ -344,7 +470,9 @@ if __name__ == '__main__':
             info2=score.render(msj2,True,BLANCO)
             info4=vida.render(msj4,True,BLANCO)
             camara.update(j)
+            lobos.update()
             aves.update()
+            pociones.update()
             balas_ave.update()
             jugadores.update()
             ventana.blit(map_img, camara.apply_rect(map_rect))
@@ -353,6 +481,10 @@ if __name__ == '__main__':
                 ventana.blit(a.image,camara.apply(a))
             for b in balas_ave:
                 ventana.blit(b.image,camara.apply(b))
+            for l in lobos:
+                ventana.blit(l.image,camara.apply(l))
+            for p in pociones:
+                ventana.blit(p.image,camara.apply(p))
             if j.vida==4:
                 ventana.blit(j.image_vida,[0,ALTO-70])
                 ventana.blit(j.image_vida,[54,ALTO-70])
@@ -396,9 +528,9 @@ if __name__ == '__main__':
                 if tile_object.name == 'vacio':
                     v=Vacio([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
                     vacios.add(v)
-                if tile_object.name == 'ave':
-                    a=Ave([tile_object.x, tile_object.y],m_ave)
-                    aves.add(a)
+                if tile_object.name == 'boss1':
+                    b=Boss1([tile_object.x, tile_object.y],m_boss1_hide)
+                    bosses.add(b)
             
             j.plataformas=plataformas
             j.vida=vidas_jugador
@@ -427,16 +559,21 @@ if __name__ == '__main__':
                     keys = pygame.key.get_pressed()
                     
                     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+                        j.con=0
                         j.velx=-VELOCIDAD
                         j.m=m_izquierda
                         j.accion=11
                     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+                        j.con=0
                         j.velx=VELOCIDAD
                         j.m=m_derecha
                         j.accion=11
-                    if keys[pygame.K_UP] or keys[pygame.K_SPACE]:
+                    if keys[pygame.K_UP] or keys[pygame.K_w]:
+                        j.con=0
                         j.vely=-10
-                    if  keys[pygame.K_c]:
+                    if  keys[pygame.K_SPACE]:
+                        slash.play()
+                        j.con=0
                         golpear=True
                         if j.m==m_derecha or j.m==m_hide:
                             j.m=m_atack1
@@ -446,14 +583,42 @@ if __name__ == '__main__':
                             j.accion=5
 
                 #DAÑO ESPADA
-                ls_l=pygame.sprite.spritecollide(j,aves,False)
-                for a in ls_l:
-                    if ((a.rect.top - 80)< j.rect.top) and (j.rect.top < (a.rect.top+80)):
-                        if golpear:
-                            j.score+=1000
-                            aves.remove(a)
-                            golpear=False
-                
+                ls_l=pygame.sprite.spritecollide(j,bosses,False)
+                for b in ls_l:
+                    if golpear:
+                        if j.temp <0 :
+                            b.vida -= 1
+                            j.temp= 30
+                            if b.vida <= 0:
+                                fin_mapa3=True
+
+                    if b.accion==10:
+                        if j.temp <0 :
+                            j.vida -= 1
+                            j.temp= 30
+                            if j.vida <= 0:
+                                fin_mapa3=True
+
+                        
+                #MOVIMIENTO BOSS
+                if b.temp < 0:
+                    if b.accion == 5:
+                        b.con=0
+                        b.m= m_boss1_attack
+                        b.accion=10
+                        b.temp =100
+                        b.velx =- 3
+                        boss1_fire_sound.play()
+                        
+                    elif b.accion == 10:
+                        b.con=0
+                        b.m= m_boss1_hide
+                        b.accion=5
+                        b.temp =100
+                        b.velx =  3
+                        
+
+
                 #PASAR AL OTRO MAPA
                 ls_l=pygame.sprite.spritecollide(j,puertas,False)
                 for l in ls_l:
@@ -493,19 +658,20 @@ if __name__ == '__main__':
                 msj2='SCORE='+str(j.score)
                 
                 msj4='NIVEL 1'
+                msj3='VIDAS '+str(b.vida)
                 info1=tiempo.render(msj1,True,BLANCO)
                 info2=score.render(msj2,True,BLANCO)
                 info4=vida.render(msj4,True,BLANCO)
+                info3=boss_f.render(msj3,True,BLANCO)
                 camara.update(j)
+                bosses.update()
                 aves.update()
                 balas_ave.update()
                 jugadores.update()
                 ventana.blit(map_img, camara.apply_rect(map_rect))
                 ventana.blit(j.image,camara.apply(j))
-                for a in aves:
-                    ventana.blit(a.image,camara.apply(a))
-                for b in balas_ave:
-                    ventana.blit(b.image,camara.apply(b))
+                ventana.blit(b.image,camara.apply(b))
+                
                 if j.vida==4:
                     ventana.blit(j.image_vida,[0,ALTO-70])
                     ventana.blit(j.image_vida,[54,ALTO-70])
@@ -525,6 +691,7 @@ if __name__ == '__main__':
                     
                 ventana.blit(info2,[10,5])
                 ventana.blit(info1,[600,5])
+                ventana.blit(info3,[b.rect.x+33,b.rect.y+20])
                 ventana.blit(info4,[650,590])
                 pygame.display.flip()
                 reloj.tick(60)

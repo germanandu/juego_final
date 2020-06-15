@@ -25,3 +25,11 @@ class Puerta(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.x=pos[0]
         self.rect.y=pos[1]
+
+class Linea(pygame.sprite.Sprite):
+    def __init__(self,pos,dm):
+        pygame.sprite.Sprite.__init__(self)
+        self.image=pygame.Surface(dm)
+        self.rect=self.image.get_rect()
+        self.rect.x=pos[0]
+        self.rect.y=pos[1]

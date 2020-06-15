@@ -24,6 +24,14 @@ bala_ave=pygame.image.load('img/bala_ave.png')
 #lobo
 walk1=pygame.image.load('img/lobo/walk1.png')
 walk2=pygame.image.load('img/lobo/walk2.png')
+#BOSS1
+boss_hide=pygame.image.load('img/boss1/hide.png')
+boss_atack=pygame.image.load('img/boss1/attack.png')
+#POCION
+pocionv_i=pygame.image.load('img/pocionv.png')
+pocionx_i=pygame.image.load('img/pocionx.png')
+
+
 #RECORTE JUGADOR
 
 m_derecha=[]
@@ -86,6 +94,29 @@ m_lobo_der=[]
 for c in range(12):
     cuadro=walk2.subsurface(64*c,32*0,64,32)
     m_lobo_der.append(cuadro)
+#RECORTE BOSS 1
+m_boss1_hide=[]
+for c in range(6):
+    cuadro=boss_hide.subsurface(160*c,144*0,160,144)
+    m_boss1_hide.append(cuadro)
+
+m_boss1_attack=[]
+for c in range(11):
+    cuadro=boss_atack.subsurface(240*c,192*0,240,192)
+    m_boss1_attack.append(cuadro)
+
+#RECORTE POCIONES
+m_pocionv=[]
+for c in range(3):
+    cuadro=pocionv_i.subsurface(24*c,24*0,24,24)
+    m_pocionv.append(cuadro)
+
+m_pocionx=[]
+for c in range(3):
+    cuadro=pocionx_i.subsurface(24*c,24*0,24,24)
+    m_pocionx.append(cuadro)
+
+
 #VARIABLES
 cruzar_puerta=False
 vidas_jugador=0
