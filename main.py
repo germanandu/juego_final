@@ -23,14 +23,21 @@ if __name__ == '__main__':
     bosses=pygame.sprite.Group()
     pociones=pygame.sprite.Group()
     ojos=pygame.sprite.Group()
+    musgos=pygame.sprite.Group()
     #MUSICA
     ambiente_music=pygame.mixer.Sound('music/ambiente.wav')
+    ambiente2_music=pygame.mixer.Sound('music/ambiente2.wav')
     slash=pygame.mixer.Sound('music/slash.wav')
+    fire_ball=pygame.mixer.Sound('music/fireball.wav')
     pocionv_sound=pygame.mixer.Sound('music/pocionv.wav')
     pocionx_sound=pygame.mixer.Sound('music/pocionx.wav')
     boss1_fire_sound=pygame.mixer.Sound('music/boss1_fire.wav')
+    #boss2_fire_sound=pygame.mixer.Sound('music/boss2_fire.wav')
     hit_sound=pygame.mixer.Sound('music/hit.wav')
     boss_win=pygame.mixer.Sound('music/nivel2.wav')
+    boss_music=pygame.mixer.Sound('music/boss.wav')
+    boss2_music=pygame.mixer.Sound('music/boss2.wav')
+    congratulations=pygame.mixer.Sound('music/congratulations.wav')
     kill_enemy=pygame.mixer.Sound('music/kill_enemy.wav')
     inicio_music=pygame.mixer.Sound('music/inicio.wav')
     
@@ -149,6 +156,10 @@ if __name__ == '__main__':
                 elif j.m==m_izquierda or j.m==m_hide2:
                     j.m=m_atack2
                     j.accion=5
+            if keys[pygame.K_p]:
+                ambiente_music.stop()
+                Pausa(ventana)
+                ambiente_music.play(-1)
                 
         #VIDA EXTRA
         ls_l=pygame.sprite.spritecollide(j,pociones,False)
@@ -397,6 +408,10 @@ if __name__ == '__main__':
                     elif j.m==m_izquierda or j.m==m_hide2:
                         j.m=m_atack2
                         j.accion=5
+                if keys[pygame.K_p]:
+                    ambiente_music.stop()
+                    Pausa(ventana)
+                    ambiente_music.play(-1)
 
             #VIDA EXTRA
             ls_l=pygame.sprite.spritecollide(j,pociones,False)
@@ -578,6 +593,7 @@ if __name__ == '__main__':
 
             #MAPA 3 NIVEL 1-----------------------------------------------------------------------------------------------------------
             ambiente_music.stop()
+            boss_music.play(-1)
             while not fin and not fin_mapa3:
                 #EVENTOS
                 for event in pygame.event.get():
@@ -621,6 +637,8 @@ if __name__ == '__main__':
                         elif j.m==m_izquierda or j.m==m_hide2:
                             j.m=m_atack2
                             j.accion=5
+                    if keys[pygame.K_p]:
+                        Pausa(ventana)
 
                 #DAÑO ESPADA
                 ls_l=pygame.sprite.spritecollide(j,bosses,False)
@@ -630,7 +648,8 @@ if __name__ == '__main__':
                             b.vida -= 1
                             j.temp= 30
                             if b.vida <= 0:
-                                boss_win.play()
+                                boss_music.stop()
+                                congratulations.play()
                                 fin_mapa3=True
                                 fin_mapa3=True
                                 cruzar_puerta=True
@@ -659,6 +678,7 @@ if __name__ == '__main__':
                             hit_sound.play()
                             j.temp= 30
                             if j.vida <= 0:
+                                boss_music.stop()
                                 fin_mapa3=True
 
                         
@@ -784,7 +804,7 @@ if __name__ == '__main__':
             j.plataformas=plataformas
 
             #MAPA 1 NIVEL 2-----------------------------------------------------------------------------------------------------------
-            
+            ambiente2_music.play(-1)
             while not fin and not fin_level2:
                 #EVENTOS
                 for event in pygame.event.get():
@@ -837,6 +857,10 @@ if __name__ == '__main__':
                                 b.velx= -5
                             b.tipo=2
                             balas_ave.add(b)
+                    if keys[pygame.K_p]:
+                        ambiente2_music.stop()
+                        Pausa(ventana)
+                        ambiente2_music.play()
 
                  #VIDA EXTRA O BALAS
                 ls_l=pygame.sprite.spritecollide(j,pociones,False)
@@ -879,6 +903,7 @@ if __name__ == '__main__':
                 #CAER AL VACIO
                 ls_l=pygame.sprite.spritecollide(j,vacios,False)
                 for v in ls_l:
+                    ambiente2_music.stop()
                     fin_level2=True
                 #PASAR AL OTRO MAPA
                 ls_l=pygame.sprite.spritecollide(j,puertas,False)
@@ -923,6 +948,7 @@ if __name__ == '__main__':
                                 j.vida-=1
                                 j.temp=60
                                 if j.vida <=0:
+                                    ambiente2_music.stop()
                                     fin_level2=True
                 #CRONOMETRO
                 if milisegundos == 60:
@@ -1014,6 +1040,9 @@ if __name__ == '__main__':
                     o=Ojo([tile_object.x, tile_object.y])
                     o.velx = -3
                     ojos.add(o)
+                if tile_object.name == 'musgo':
+                    m=Musgo([tile_object.x, tile_object.y])
+                    musgos.add(m)
                 if tile_object.name == 'linea':
                     l=Linea([tile_object.x, tile_object.y],[tile_object.width, tile_object.height])
                     lineas.add(l)
@@ -1079,6 +1108,7 @@ if __name__ == '__main__':
                             j.m=m_atack2
                             j.accion=5
                         if j.pocionx:
+                            fire_ball.play()
                             p=j.RetPos()
                             b=Bala_ave(p,bala_j)
                             if j.m==m_atack1:
@@ -1088,6 +1118,10 @@ if __name__ == '__main__':
                                 b.rect.x -=96
                             b.tipo=2
                             balas_ave.add(b)
+                    if keys[pygame.K_p]:
+                        ambiente2_music.stop()
+                        Pausa(ventana)
+                        ambiente2_music.play()
 
                  #VIDA EXTRA O BALAS
                 ls_l=pygame.sprite.spritecollide(j,pociones,False)
@@ -1111,6 +1145,14 @@ if __name__ == '__main__':
                         j.score+=1000
                         ojos.remove(o)
                         golpear=False
+                #DAÑO ESPADA
+                ls_l=pygame.sprite.spritecollide(j,musgos,False)
+                for m in ls_l:
+                    if golpear:
+                        kill_enemy.play()
+                        j.score+=1000
+                        musgos.remove(m)
+                        golpear=False
                 #MOVIMIENTO OJOS
                 for o in ojos:
                     ls_l=pygame.sprite.spritecollide(o,lineas,False)
@@ -1126,7 +1168,14 @@ if __name__ == '__main__':
                         b.vely=3
                         balas_ave.add(b)
                         o.temp=random.randrange(100)
-
+                #DISPAROS MUSGOS
+                for m in musgos:
+                    if m.temp < 0:
+                        p=m.RetPos()
+                        b=Bala_ave(p,bala_musgo)
+                        b.velx=3
+                        balas_ave.add(b)
+                        m.temp=random.randrange(100)
                 #CAER AL VACIO
                 ls_l=pygame.sprite.spritecollide(j,vacios,False)
                 for v in ls_l:
@@ -1134,6 +1183,7 @@ if __name__ == '__main__':
                 #PASAR AL OTRO MAPA
                 ls_l=pygame.sprite.spritecollide(j,puertas,False)
                 for l in ls_l:
+                    ambiente2_music.stop()
                     vidas_jugador=j.vida
                     score_jugador=j.score
                     fin_level2=True
@@ -1180,6 +1230,7 @@ if __name__ == '__main__':
                                 j.vida-=1
                                 j.temp=60
                                 if j.vida <=0:
+                                    ambiente2_music.stop()
                                     fin_level2=True
                 #CRONOMETRO
                 if milisegundos == 60:
@@ -1205,11 +1256,14 @@ if __name__ == '__main__':
                 info1=tiempo.render(msj1,True,BLANCO)
                 info2=score.render(msj2,True,BLANCO)
                 info4=vida.render(msj4,True,BLANCO)
+                #UPDATE
                 camara.update(j)
                 balas_ave.update()
                 jugadores.update()
                 pociones.update()
                 ojos.update()
+                musgos.update()
+                #IMPRESION
                 ventana.blit(map_img, camara.apply_rect(map_rect))
                 ventana.blit(j.image,camara.apply(j))
                 for o in ojos:
@@ -1218,6 +1272,8 @@ if __name__ == '__main__':
                     ventana.blit(b.image,camara.apply(b))
                 for p in pociones:
                     ventana.blit(p.image,camara.apply(p))
+                for m in musgos:
+                    ventana.blit(m.image,camara.apply(m))
 
                 if j.vida==4:
                     ventana.blit(j.image_vida,[0,ALTO-70])
@@ -1288,7 +1344,7 @@ if __name__ == '__main__':
             j.score=score_jugador
 
             #MAPA 3 NIVEL 2-----------------------------------------------------------------------------------------------------------
-            
+            boss2_music.play()
             while not fin and not fin_level2:
                 #EVENTOS
                 for event in pygame.event.get():
@@ -1333,6 +1389,7 @@ if __name__ == '__main__':
                             j.m=m_atack2
                             j.accion=5
                         if j.pocionx:
+                            fire_ball.play()
                             p=j.RetPos()
                             b=Bala_ave(p,bala_j)
                             if j.m==m_atack1:
@@ -1342,6 +1399,8 @@ if __name__ == '__main__':
                                 b.rect.x -=96
                             b.tipo=2
                             balas_ave.add(b)
+                    if keys[pygame.K_p]:
+                        Pausa(ventana)
 
                  #VIDA EXTRA O BALAS
                 ls_l=pygame.sprite.spritecollide(j,pociones,False)
@@ -1365,6 +1424,7 @@ if __name__ == '__main__':
                             b.vida -= 1
                             j.temp= 30
                             if b.vida <= 0:
+                                boss2_music.stop()
                                 boss_win.play()
                                 fin_level2=True
                                 cruzar_puerta=True
@@ -1378,6 +1438,7 @@ if __name__ == '__main__':
                             hit_sound.play()
                             j.temp= 30
                             if j.vida <= 0:
+                                boss2_music.stop()
                                 fin_level2=True
                 #MOVIMIENTO BOSS
                 if bss.temp < 0:
@@ -1406,6 +1467,7 @@ if __name__ == '__main__':
                                 j.temp= 30
                                 if bs.vida <= 0:
                                     boss_win.play()
+                                    boss2_music.stop()
                                     fin_level2=True
                                     cruzar_puerta=True
                             
@@ -1421,6 +1483,7 @@ if __name__ == '__main__':
                                 j.vida-=1
                                 j.temp=60
                                 if j.vida <=0:
+                                    boss2_music.stop()
                                     fin_level2=True
                 #CRONOMETRO
                 if milisegundos == 60:
@@ -1488,8 +1551,12 @@ if __name__ == '__main__':
                 pygame.display.flip()
                 reloj.tick(60)
                 milisegundos += 1
+        if cruzar_puerta:
+            congratulations.play()
+            Felicidades(ventana)
     #FIN JUEGO
     if not cruzar_puerta:
+        ambiente_music.stop()
         while not fin:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

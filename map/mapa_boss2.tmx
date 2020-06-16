@@ -17,9 +17,9 @@
  <objectgroup id="2" name="plataformas">
   <object id="1" name="wall" x="4.83099" y="501.043" width="757.775" height="22.0845"/>
   <object id="2" name="wall" x="1.38028" y="2.76057" width="4.14085" height="574.888"/>
-  <object id="4" name="boss2" x="608.015" y="432.719" width="55" height="64"/>
+  <object id="4" name="boss2" x="608.015" y="432.719" width="55" height="160"/>
   <object id="5" name="player" x="48.3099" y="435.479"/>
   <object id="6" name="wall" x="762.606" y="-1.38028" width="4.14085" height="574.888"/>
-  <object id="7" name="pocionx" x="327.127" y="383.028" width="13.1127" height="15.1831"/>
+  <object id="7" name="pocionx" x="417.536" y="359.563" width="13.1127" height="15.1831"/>
  </objectgroup>
 </map>

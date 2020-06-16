@@ -140,25 +140,24 @@
   <object id="67" name="ojo" x="325.333" y="678.667" width="32" height="32"/>
   <object id="68" name="linea" x="198.667" y="666.667" width="8" height="38.6667"/>
   <object id="69" name="linea" x="478.667" y="670.667" width="5.33333" height="29.3333"/>
-  <object id="70" x="26.6667" y="478.667" width="32" height="32"/>
+  <object id="70" name="musgo" x="25.3334" y="470.667" width="32" height="32"/>
   <object id="71" name="pocionv" x="714.667" y="436" width="24" height="24"/>
-  <object id="72" x="16" y="1233.33" width="32" height="32"/>
-  <object id="73" x="14.6667" y="1833.33" width="32" height="32"/>
+  <object id="72" name="musgo" x="24" y="1226.66" width="32" height="32"/>
+  <object id="73" name="musgo" x="22.6667" y="1826.66" width="32" height="32"/>
   <object id="74" name="ojo" x="178.667" y="1505.33" width="32" height="32"/>
   <object id="75" name="linea" x="14.6667" y="1500" width="8" height="38.6667"/>
   <object id="76" name="linea" x="378.667" y="1504" width="5.33333" height="29.3333"/>
-  <object id="77" x="12" y="2330.67" width="32" height="32"/>
+  <object id="77" name="musgo" x="24" y="2322.67" width="32" height="32"/>
   <object id="78" name="pocionv" x="289.333" y="2389.33" width="24" height="24"/>
-  <object id="79" x="14.6667" y="2729.33" width="32" height="32"/>
-  <object id="80" name="ojo" x="494.667" y="2746.67" width="32" height="32"/>
-  <object id="81" name="linea" x="258.667" y="2741.33" width="8" height="38.6667"/>
-  <object id="82" name="linea" x="742.667" y="2738.67" width="8" height="38.6667"/>
-  <object id="84" x="14.6667" y="3284" width="32" height="32"/>
+  <object id="79" name="musgo" x="25.3334" y="2721.33" width="32" height="32"/>
+  <object id="80" name="ojo" x="501.334" y="2802.67" width="32" height="32"/>
+  <object id="81" name="linea" x="270.667" y="2789.33" width="8" height="38.6667"/>
+  <object id="82" name="linea" x="744" y="2797.34" width="8" height="38.6667"/>
+  <object id="84" name="musgo" x="25.3334" y="3273.33" width="32" height="32"/>
   <object id="85" name="pocionv" x="654.667" y="3986.67" width="24" height="24"/>
   <object id="86" name="ojo" x="520" y="3388" width="32" height="32"/>
   <object id="87" name="linea" x="313.333" y="3376" width="8" height="38.6667"/>
   <object id="89" name="linea" x="742.667" y="3374.67" width="8" height="38.6667"/>
-  <object id="90" name="pocionx" x="28" y="3792" width="24" height="24"/>
   <object id="91" name="wall" x="2.66667" y="0" width="761.333" height="10.6667"/>
   <object id="92" name="player" x="21.3333" y="108" width="41.3333" height="45.3333"/>
  </objectgroup>

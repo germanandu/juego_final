@@ -52,7 +52,7 @@
   <object id="35" name="wall" x="9467.88" y="454.636" width="261" height="114"/>
   <object id="36" name="wall" x="9723.36" y="400.182" width="394" height="167"/>
   <object id="37" name="wall" x="10221.3" y="452.606" width="914" height="119"/>
-  <object id="38" name="puerta" x="11135" y="308.061" width="40" height="144"/>
+  <object id="38" name="puerta" x="11135" y="1.061" width="40" height="451"/>
   <object id="39" name="wall" x="1.09091" y="4.48485" width="6" height="571"/>
   <object id="40" name="player" x="19.6364" y="354.455" width="41" height="45"/>
   <object id="41" name="vacio" x="648" y="612" width="10483" height="28"/>

@@ -64,7 +64,7 @@
   <object id="51" name="ave" x="9586" y="90" width="150" height="150"/>
   <object id="52" name="vacio" x="6" y="500" width="11168" height="68"/>
   <object id="53" name="ave" x="4892" y="94" width="150" height="150"/>
-  <object id="54" name="puerta" x="11226" y="50" width="60" height="356"/>
+  <object id="54" name="puerta" x="11202" y="-4" width="84" height="414"/>
   <object id="56" name="lobo" x="3038" y="368" width="32" height="64"/>
   <object id="58" name="lobo" x="3872" y="366" width="32" height="64"/>
   <object id="59" name="lobo" x="5808" y="362" width="32" height="64"/>

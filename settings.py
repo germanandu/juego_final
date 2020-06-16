@@ -21,6 +21,8 @@ def instruciones(v):
     while not salir_ins:
         #Gestion eventos
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
             if event.type == pygame.KEYDOWN:
                 if event.key==pygame.K_1:
                     salir_ins=True
@@ -32,6 +34,52 @@ def instruciones(v):
         v.blit(espacio,[200,380])
         v.blit(golpe,[295,360])
         v.blit(salir,[550,500])
+        pygame.display.flip()
+
+def Pausa(v):
+    salir_ins=False
+    pausa=pygame.image.load('img/pausa.png')
+    while  not salir_ins:
+        #Gestion eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key==pygame.K_p:
+                    salir_ins=True
+        v.blit(pausa,[200,200])
+        pygame.display.flip()
+
+
+def Pausa2():
+    salir_ins=False
+    temp=300
+    while  not salir_ins:
+        #Gestion eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+        temp-=1
+        if temp < 0:
+            salir_ins=True
+        
+
+def Felicidades(v):
+    salir_ins=False
+    felicidades=pygame.image.load('img/felicidades.png')
+    nombres=pygame.image.load('img/nombres.png')
+    hecho_por=pygame.image.load('img/hecho_por.png')
+    while  not salir_ins:
+        #Gestion eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key==pygame.K_p:
+                    salir_ins=True
+        v.blit(felicidades,[20,20])
+        v.blit(hecho_por,[250,200])
+        v.blit(nombres,[130,290])
         pygame.display.flip()
 
 #IMAGENES
@@ -54,6 +102,7 @@ hide2=pygame.image.load('img/personaje/hide2.png')
 atack1=pygame.image.load('img/personaje/attack.png')
 atack2=pygame.image.load('img/personaje/attack2.png')
 bala_j=pygame.image.load('img/bala_j.png')
+bala_musgo=pygame.image.load('img/bola.png')
 #ave
 hide_ave=pygame.image.load('img/ave/Flight.png')
 bala_ave=pygame.image.load('img/bala_ave.png')
@@ -192,3 +241,4 @@ fin_mapa3=False
 fin_level2=False
 fin = False
 reloj=pygame.time.Clock()
+
