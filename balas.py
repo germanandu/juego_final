@@ -9,6 +9,9 @@ class Bala_ave(pygame.sprite.Sprite):
         self.rect.x=pos[0]
         self.rect.y=pos[1]
         self.vely=0
+        self.velx=0
+        self.tipo=1
 
     def update(self):
         self.rect.y+=self.vely
+        self.rect.x+=self.velx

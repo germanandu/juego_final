@@ -108,7 +108,7 @@
   <object id="26" name="puerta" x="-2.66667" y="4721.33" width="770.667" height="24"/>
   <object id="27" name="wall" x="-1.77636e-15" y="-1.06581e-14" width="5.33333" height="4748"/>
   <object id="28" name="wall" x="761.333" y="2.66667" width="5.33333" height="4748"/>
-  <object id="29" name="player" x="54.6667" y="220"/>
+  <object id="29" name="player" x="9.33337" y="273.333" width="38" height="48"/>
   <object id="30" name="lobo" x="456" y="288" width="32" height="64"/>
   <object id="31" name="lobo" x="405.333" y="1136" width="32" height="64"/>
   <object id="32" name="lobo" x="390.667" y="1888" width="32" height="64"/>

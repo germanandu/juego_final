@@ -19,6 +19,7 @@ class Jugador(pygame.sprite.Sprite):
         self.vida=4
         self.score=0
         self.temp=60
+        self.pocionx=False
         self.plataformas=None
 
     def gravedad (self, g=0.7):
@@ -28,8 +29,8 @@ class Jugador(pygame.sprite.Sprite):
             self.vely += g
     
     def RetPos(self):
-        x=self.rect.x 
-        y=self.rect.y 
+        x=self.rect.x +96
+        y=self.rect.y +24
         return [x,y]
 
     def update(self):
