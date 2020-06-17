@@ -40,7 +40,7 @@ if __name__ == '__main__':
     congratulations=pygame.mixer.Sound('music/congratulations.wav')
     kill_enemy=pygame.mixer.Sound('music/kill_enemy.wav')
     inicio_music=pygame.mixer.Sound('music/inicio.wav')
-    
+    gameover_music=pygame.mixer.Sound('music/gameover.wav')
     #intro_sound=pygame.mixer.Sound('music/intro.mp3')
     
     #LETRAS
@@ -144,8 +144,10 @@ if __name__ == '__main__':
                 j.m=m_derecha
                 j.accion=11
             if keys[pygame.K_UP] or keys[pygame.K_w]:
-                j.con=0
-                j.vely=-10
+                if j.salto < 2:
+                    j.con=0
+                    j.vely=-10
+                    j.salto+=1
             if  keys[pygame.K_SPACE]:
                 slash.play()
                 j.con=0
@@ -396,8 +398,10 @@ if __name__ == '__main__':
                     j.m=m_derecha
                     j.accion=11
                 if keys[pygame.K_UP] or keys[pygame.K_w]:
-                    j.con=0
-                    j.vely=-10
+                    if j.salto < 2:
+                        j.con=0
+                        j.vely=-10
+                        j.salto+=1
                 if  keys[pygame.K_SPACE]:
                     slash.play()
                     j.con=0
@@ -625,8 +629,10 @@ if __name__ == '__main__':
                         j.m=m_derecha
                         j.accion=11
                     if keys[pygame.K_UP] or keys[pygame.K_w]:
-                        j.con=0
-                        j.vely=-10
+                        if j.salto < 2:
+                            j.con=0
+                            j.vely=-10
+                            j.salto+=1
                     if  keys[pygame.K_SPACE]:
                         slash.play()
                         j.con=0
@@ -647,6 +653,7 @@ if __name__ == '__main__':
                         if j.temp <0 :
                             b.vida -= 1
                             j.temp= 30
+                            kill_enemy.play()
                             if b.vida <= 0:
                                 boss_music.stop()
                                 congratulations.play()
@@ -836,8 +843,10 @@ if __name__ == '__main__':
                         j.m=m_derecha
                         j.accion=11
                     if keys[pygame.K_UP] or keys[pygame.K_w]:
-                        j.con=0
-                        j.vely=-10
+                        if j.salto < 2:
+                            j.con=0
+                            j.vely=-10
+                            j.salto+=1
                     if  keys[pygame.K_SPACE]:
                         slash.play()
                         j.con=0
@@ -1095,8 +1104,10 @@ if __name__ == '__main__':
                         j.m=m_derecha
                         j.accion=11
                     if keys[pygame.K_UP] or keys[pygame.K_w]:
-                        j.con=0
-                        j.vely=-10
+                        if j.salto < 2:
+                            j.con=0
+                            j.vely=-10
+                            j.salto+=1
                     if  keys[pygame.K_SPACE]:
                         slash.play()
                         j.con=0
@@ -1175,7 +1186,7 @@ if __name__ == '__main__':
                         b=Bala_ave(p,bala_musgo)
                         b.velx=3
                         balas_ave.add(b)
-                        m.temp=random.randrange(100)
+                        m.temp=60
                 #CAER AL VACIO
                 ls_l=pygame.sprite.spritecollide(j,vacios,False)
                 for v in ls_l:
@@ -1376,8 +1387,10 @@ if __name__ == '__main__':
                         j.m=m_derecha
                         j.accion=11
                     if keys[pygame.K_UP] or keys[pygame.K_w]:
-                        j.con=0
-                        j.vely=-10
+                        if j.salto < 2:
+                            j.con=0
+                            j.vely=-10
+                            j.salto+=1
                     if  keys[pygame.K_SPACE]:
                         slash.play()
                         j.con=0
@@ -1422,6 +1435,7 @@ if __name__ == '__main__':
                     if golpear:
                         if j.temp <0 :
                             b.vida -= 1
+                            kill_enemy.play()
                             j.temp= 30
                             if b.vida <= 0:
                                 boss2_music.stop()
@@ -1463,6 +1477,7 @@ if __name__ == '__main__':
                         if b.tipo==2:
                             if j.temp <0 :
                                 balas_ave.remove(b)
+                                kill_enemy.play()
                                 bs.vida -= 1
                                 j.temp= 30
                                 if bs.vida <= 0:
@@ -1557,6 +1572,7 @@ if __name__ == '__main__':
     #FIN JUEGO
     if not cruzar_puerta:
         ambiente_music.stop()
+        gameover_music.play()
         while not fin:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

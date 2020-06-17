@@ -144,7 +144,7 @@ class Musgo(pygame.sprite.Sprite):
         self.rect.x=pos[0]
         self.rect.y=pos[1]
         self.velx=0
-        self.temp=random.randrange(100)
+        self.temp=60
 
     def RetPos(self):
         x=self.rect.x +24

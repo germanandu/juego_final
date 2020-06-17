@@ -17,6 +17,7 @@ class Jugador(pygame.sprite.Sprite):
         self.velx=0
         self.vely=0
         self.vida=4
+        self.salto=0
         self.score=0
         self.temp=60
         self.pocionx=False
@@ -68,6 +69,7 @@ class Jugador(pygame.sprite.Sprite):
                 if self.rect.bottom > b.rect.top:
                     self.rect.bottom= b.rect.top
                     self.vely=0
+                    self.salto=0
             else:
                 if self.rect.top < b.rect.bottom:
                     self.rect.top= b.rect.bottom
